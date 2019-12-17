@@ -5,33 +5,37 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/my_car"
             android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:title="我的车辆" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/chuxinghuanjing"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:title="出行环境" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/daoluzhuangkuang"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="道路状况" />
         <item
-            android:id="@+id/nav_tools"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
+            android:id="@+id/chengshigongjiao"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="城市公交" />
+        <item
+            android:id="@+id/chuangyimokuai"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="创意模块" />
+        <item
+            android:id="@+id/guanyu"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="出行环境" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="其他">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/lianxikefu"
                 android:icon="@drawable/ic_menu_share"
-                android:title="@string/menu_share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/menu_send" />
+                android:title="联系客服" />
         </menu>
     </item>
 

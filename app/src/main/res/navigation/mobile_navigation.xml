@@ -3,41 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/my_car">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.fjny.myapplication.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/my_car"
+        android:name="com.fjny.myapplication.ui.fragment.MyCarFragment"
+        android:label="@string/menu_home"/>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.fjny.myapplication.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
+        android:id="@+id/chuxinghuanjing"
+        android:name="com.fjny.myapplication.ui.fragment.ChuxinghuanjingFragment"
+        android:label="@string/menu_gallery"/>
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.fjny.myapplication.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-
+        android:id="@+id/daoluzhuangkuang"
+        android:name="com.fjny.myapplication.ui.fragment.DaoluzhuangkFragment"
+        android:label="@string/menu_gallery"/>
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.fjny.myapplication.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
-
+        android:id="@+id/chengshigongjiao"
+        android:name="com.fjny.myapplication.ui.fragment.ChengshigonjiaoFragment"
+        android:label="@string/menu_gallery"/>
     <fragment
-        android:id="@+id/nav_share"
-        android:name="com.fjny.myapplication.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
-
+        android:id="@+id/chuangyimokuai"
+        android:name="com.fjny.myapplication.ui.fragment.ChuangyimokuaiFragment"
+        android:label="@string/menu_gallery"/>
     <fragment
-        android:id="@+id/nav_send"
-        android:name="com.fjny.myapplication.ui.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
+        android:id="@+id/guanyu"
+        android:name="com.fjny.myapplication.ui.fragment.GuanyuFragment"
+        android:label="@string/menu_gallery"/>
+    <fragment
+        android:id="@+id/lianxikefu"
+        android:name="com.fjny.myapplication.ui.fragment.LianxikefuFragment"
+        android:label="@string/menu_gallery"/>
+
 </navigation>
