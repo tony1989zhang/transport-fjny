@@ -50,6 +50,10 @@ public class GuideActivity extends BaseActivity {
                 }else{
                     startActivity(new Intent(GuideActivity.this,MainActivity.class));
                 }
+                //设置跳转页面动画 淡入淡出、滑入滑出
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
 
                 //跳转后销毁当前页面 防止返回
                 finish();

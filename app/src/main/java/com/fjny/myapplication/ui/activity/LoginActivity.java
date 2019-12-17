@@ -61,7 +61,7 @@ public class LoginActivity extends BaseActivity {
 
                     //如果选择自动登陆 则不存储为游客
                     if(cbRemember.isChecked()){
-                        editor.putBoolean("iGuide",false);
+                        editor.putBoolean("isGuide",false);
                     }
 
                     //应用编辑提交
