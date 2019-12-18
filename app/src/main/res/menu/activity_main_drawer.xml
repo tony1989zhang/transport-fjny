@@ -27,7 +27,7 @@
         <item
             android:id="@+id/guanyu"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="出行环境" />
+            android:title="关于" />
     </group>
 
     <item android:title="其他">
