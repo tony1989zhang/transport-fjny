@@ -62,8 +62,8 @@ public class MainActivity extends BaseActivity {
 
         // 从 shared 中获取用户信息 并显示到侧滑菜单上
         SharedPreferences shared = getSharedPreferences("userInfo", MODE_PRIVATE);
-        textView1.setText(shared.getString("name","name"));
-        textView2.setText(shared.getString("contact","contact"));
+        textView1.setText("姓名："+ shared.getString("name","name"));
+        textView2.setText("联系方式："+ shared.getString("contact","contact"));
     }
 
 
