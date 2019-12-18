@@ -22,7 +22,6 @@ public class ChuxinghuanjingFragment extends BaseFragment {
     private TextView mTvCo2;
     private TextView mTvLight;
     private TextView mTvHumidity;
-    private TextView chuxinghuanjing;
     @Override
     int getLayoutId() {
         return R.layout.chuxinghuanjing_fragment;
@@ -30,7 +29,6 @@ public class ChuxinghuanjingFragment extends BaseFragment {
 
     @Override
     void initView(View view) {
-        chuxinghuanjing = view.findViewById(R.id.chuxinghuanjing_text);
         mTvT = view.findViewById(R.id.env_T);
         mTvPm =view.findViewById(R.id.env_Pm);
         mTvCo2 =view.findViewById(R.id.env_Co2);
@@ -56,8 +54,6 @@ public class ChuxinghuanjingFragment extends BaseFragment {
             super.handleMessage(msg);
             ChuxinghuanjingInfo chuxinghuanjingInfo = (ChuxinghuanjingInfo) msg.obj;
             //设置值
-            chuxinghuanjing.setText(chuxinghuanjingInfo.getCo2()+","+chuxinghuanjingInfo.getHumidity()+","+chuxinghuanjingInfo.getLight()+","+
-                    chuxinghuanjingInfo.getPm()+","+chuxinghuanjingInfo.getTemp());
             mTvT.setText(chuxinghuanjingInfo.getTemp()+"°C");
             mTvPm.setText(chuxinghuanjingInfo.getPm()+"");
             mTvCo2.setText(chuxinghuanjingInfo.getCo2()+"");

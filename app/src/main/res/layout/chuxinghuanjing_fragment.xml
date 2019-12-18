@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.MyCarFragment"
     android:orientation="vertical">
-    <!--头部页面-->
+        <!--头部页面-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
         android:orientation="horizontal">
-
+        <!--显示温度-->
         <TextView
             android:id="@+id/env_T"
             android:layout_height="wrap_content"
