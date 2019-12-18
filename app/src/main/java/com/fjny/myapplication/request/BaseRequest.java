@@ -1,6 +1,8 @@
 package com.fjny.myapplication.request;
 
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.fjny.myapplication.utils.NetUtil;
 import com.fjny.myapplication.utils.Session;
@@ -18,7 +20,7 @@ public abstract class BaseRequest {
 
     public BaseRequest(Context context){
         this.mContext = context;
-        url = "http://"+ Session.ip +8080+"/transportservice/type/jason/action/";
+        url = "http://"+ Session.ip +":"+8080+"/transportservice/type/jason/action/";
     }
 
     //获取id
@@ -41,7 +43,7 @@ public abstract class BaseRequest {
             }
             @Override
             public void error(String massage) {
-                //请求失败
+                Toast.makeText(mContext,"获取数据失败",Toast.LENGTH_SHORT).show();
             }
         });
     }

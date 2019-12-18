@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IInterface;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
@@ -81,7 +82,7 @@ public class NetUtil {
         try {
             is = conn.getInputStream();
             isr = new InputStreamReader(is);
-            br = new BufferedReader(br);
+            br = new BufferedReader(isr);
             String line;
 
             while ((line = br.readLine()) != null){

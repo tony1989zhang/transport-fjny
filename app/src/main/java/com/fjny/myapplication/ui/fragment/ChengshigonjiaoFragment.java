@@ -1,11 +1,11 @@
 package com.fjny.myapplication.ui.fragment;
 
 import android.view.View;
+import android.widget.Button;
 
 import com.fjny.myapplication.R;
 
 public class ChengshigonjiaoFragment extends BaseFragment {
-
 
     @Override
     int getLayoutId() {
