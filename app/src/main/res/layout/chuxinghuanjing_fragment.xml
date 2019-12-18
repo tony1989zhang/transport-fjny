@@ -11,6 +11,7 @@
         android:layout_height="200dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
+        android:paddingLeft="40dp"
         android:orientation="horizontal">
         <!--显示温度-->
         <TextView
@@ -19,7 +20,6 @@
             android:layout_width="wrap_content"
             android:text="？℃"
             android:textSize="80sp"
-            android:paddingLeft="40dp"
             android:textColor="@color/colorWhite"
             />
 
