@@ -1,8 +1,11 @@
 package com.fjny.myapplication.ui.fragment;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,6 +19,7 @@ import com.fjny.myapplication.request.BaseRequest;
 import com.fjny.myapplication.request.GetBalanceRequest;
 import com.fjny.myapplication.request.SetBalanceRequest;
 import com.fjny.myapplication.service.CarInfoService;
+import com.fjny.myapplication.ui.activity.setMoneyActivity;
 import com.fjny.myapplication.utils.Session;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -29,10 +33,9 @@ public class MyCarFragment extends BaseFragment {
     private String[] cars;
     private Spinner spinner;
     private int [] carPhots;
+    private int carId;
 
     private ImageView carPhoto;//车的图片
-    private Spinner xlk;//下拉框
-    private TextView money;//钱
     private TextView xhText;//型号
     private TextView fdjText;//发动机
     private TextView cjText;//车架
@@ -42,6 +45,8 @@ public class MyCarFragment extends BaseFragment {
     private TextView wzcsText;//违章次数
     private TextView zkfText;//总扣分
     private TextView zfkText;//总罚款
+
+    private Button btnSetMoney;//充值按钮
 
     @Override
     int getLayoutId() {
@@ -64,6 +69,8 @@ public class MyCarFragment extends BaseFragment {
         wzcsText = view.findViewById(R.id.wzcs_text);
         zkfText = view.findViewById(R.id.zkf_text);
         zfkText = view.findViewById(R.id.zfk_text);
+
+        btnSetMoney = view.findViewById(R.id.czye);
     }
 
     @Override
@@ -86,22 +93,34 @@ public class MyCarFragment extends BaseFragment {
                 R.drawable.baojun_310,
                 R.drawable.toyota_carola
         };
-
+        //下拉框
         SpinnerFactory.getSpinner(mContext, cars, spinner, new SpinnerFactory.SpinnerListener() {
             @Override
             public void onSelector(int position) {
+                carId = position + 1;
                 //获取余额 参数1:小车id
                 getBalance(position + 1);
-
+                //获取小车参数
                 getXmlData(position);
+                //获取小车图片
                 carPhoto.setImageResource(carPhots[position]);
             }
         });
 
-        //充值余额 参数1：小车id 参数2:充值的金额
-        setBalance(1, 100);
-    }
 
+        //点击进入充值页面
+        btnSetMoney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), setMoneyActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.isEmpty();
+                bundle.putInt("carId",carId);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+    }
 
     //获取余额
     void getBalance(int carId) {
@@ -110,24 +129,12 @@ public class MyCarFragment extends BaseFragment {
         getBalaceRequest.connec(new BaseRequest.BaseRequestListener() {
             @Override
             public void onReturn(Object data) {
-                carBalance.setText(data.toString());
+                carBalance.setText( "￥"+ data.toString() +".00");
             }
         });
     }
 
-    //充值余额
-    void setBalance(int carId, int money) {
-        SetBalanceRequest setBalanceRequest = new SetBalanceRequest(mContext);
-        setBalanceRequest.setMoney(carId, money);
-        setBalanceRequest.connec(new BaseRequest.BaseRequestListener() {
-            @Override
-            public void onReturn(Object data) {
-                if (data.equals("ok")) {
-                    Toast.makeText(mContext, "充值成功", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
+
 
 
     Handler handler = new  Handler(){
@@ -180,6 +187,6 @@ public class MyCarFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getBalance(1);
+        getBalance(carId);
     }
 }
