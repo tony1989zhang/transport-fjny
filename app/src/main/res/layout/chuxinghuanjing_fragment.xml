@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:text="？℃"
             android:textSize="80sp"
-            android:layout_marginLeft="40dp"
+            android:paddingLeft="40dp"
             android:textColor="@color/colorWhite"
             />
 
@@ -154,5 +154,4 @@
             <!--第二排结束-->
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>
