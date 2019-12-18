@@ -13,8 +13,15 @@ import com.fjny.myapplication.model.ChuxinghuanjingInfo;
 import com.fjny.myapplication.request.BaseRequest;
 import com.fjny.myapplication.request.GetChuxinghuanjingRequest;
 
+import org.w3c.dom.Text;
+
 public class ChuxinghuanjingFragment extends BaseFragment {
     private boolean isF5;//是否开启线程
+    private TextView mTvT;
+    private TextView mTvPm;
+    private TextView mTvCo2;
+    private TextView mTvLight;
+    private TextView mTvHumidity;
     private TextView chuxinghuanjing;
     @Override
     int getLayoutId() {
@@ -24,6 +31,11 @@ public class ChuxinghuanjingFragment extends BaseFragment {
     @Override
     void initView(View view) {
         chuxinghuanjing = view.findViewById(R.id.chuxinghuanjing_text);
+        mTvT = view.findViewById(R.id.env_T);
+        mTvPm =view.findViewById(R.id.env_Pm);
+        mTvCo2 =view.findViewById(R.id.env_Co2);
+        mTvLight =view.findViewById(R.id.env_Light);
+        mTvHumidity =view.findViewById(R.id.env_Humidity);
     }
 
     @Override
@@ -46,6 +58,11 @@ public class ChuxinghuanjingFragment extends BaseFragment {
             //设置值
             chuxinghuanjing.setText(chuxinghuanjingInfo.getCo2()+","+chuxinghuanjingInfo.getHumidity()+","+chuxinghuanjingInfo.getLight()+","+
                     chuxinghuanjingInfo.getPm()+","+chuxinghuanjingInfo.getTemp());
+            mTvT.setText(chuxinghuanjingInfo.getTemp()+"°C");
+            mTvPm.setText(chuxinghuanjingInfo.getPm()+"");
+            mTvCo2.setText(chuxinghuanjingInfo.getCo2()+"");
+            mTvLight.setText(chuxinghuanjingInfo.getLight()+"");
+            mTvHumidity.setText(chuxinghuanjingInfo.getHumidity()+"");
         }
     };
     Thread thread = new Thread(){
