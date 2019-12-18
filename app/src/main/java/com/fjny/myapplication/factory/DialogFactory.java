@@ -24,14 +24,11 @@ public class DialogFactory {
     //定义 显示对话框 方法
     public static void showDialog(Context context,String title, String msg,
                                   final OnLitener onAfter){
-        //Dialogg 通过构建者模式 创建
+        //Dialog 通过构建者模式 创建
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);       //设置标题
         builder.setMessage(msg);    //设置内容
         builder.setNegativeButton("取消",null);   //设置取消按钮
-
-        // 忽略按钮
-        //builder.setNeutralButton("忽略", null);
 
         //设置确定按钮
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -47,12 +44,6 @@ public class DialogFactory {
 
         //如果dialog没有显示
         if(!dialog.isShowing()){
-            // Dialog 透明度
-            //Window window = dialog.getWindow();
-            //WindowManager.LayoutParams lp = window.getAttributes();
-            //lp.alpha = 0.8f;
-            //window.setAttributes(lp);
-
             // 则把 dialog 显示出来
             dialog.show();
         }
@@ -81,7 +72,7 @@ public class DialogFactory {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch(which){
-                    case 0:
+                    case 1:
                     // 选择远端模拟沙盘
                     Session.ip = AppConfig.IP_DEFAULT;  // 47.106.226.220
                     Session.ipFlag = AppConfig.IP_REMOTE; //    remote
@@ -89,7 +80,7 @@ public class DialogFactory {
                     break;
 
                     //选择 本地仿真沙盘
-                    case 1:
+                    case 0:
                         //显示带编辑框的对话框 并交给外部实现接口处理
                         EditDialog.show(context,"设置IP地址",onAfter);
                         break;
