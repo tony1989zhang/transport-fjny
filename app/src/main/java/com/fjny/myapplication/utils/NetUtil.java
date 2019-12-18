@@ -2,12 +2,9 @@ package com.fjny.myapplication.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
-import android.os.IInterface;
 import android.os.Looper;
-import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
@@ -21,7 +18,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
