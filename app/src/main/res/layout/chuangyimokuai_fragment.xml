@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.MyCarFragment">
+    tools:context=".ui.fragment.MyCarFragment"
+    android:orientation="vertical">
 
-    <TextView
+    <Button
+        android:id="@+id/btn_color1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="创意模块" />
+        android:layout_height="wrap_content"
+        android:text="点击变色"/>
 
 </LinearLayout>
