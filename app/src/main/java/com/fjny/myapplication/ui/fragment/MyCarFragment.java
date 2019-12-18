@@ -29,9 +29,9 @@ public class MyCarFragment extends BaseFragment {
         //初始化ip和服务器类型
         Session.ip = AppConfig.IP_DEFAULT;
         Session.ipFlag = AppConfig.IP_LOCAL;
-        //获取余额
+        //获取余额 参数1:小车id
         getBalance(1);
-
+        //充值余额 参数1：小车id 参数2:充值的金额
         setBalance(1,100);
     }
 
@@ -60,9 +60,6 @@ public class MyCarFragment extends BaseFragment {
             }
         });
     }
-
-
-
     //回到这个页面记得刷新
     @Override
     public void onResume() {
