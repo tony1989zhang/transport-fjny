@@ -2,11 +2,16 @@ package com.fjny.myapplication.ui.activity;
 
 
 import com.fjny.myapplication.R;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.MenuItem;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.fjny.myapplication.factory.ToastFactory;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
@@ -64,19 +69,38 @@ public class MainActivity extends BaseActivity {
                 return true;
             }
         });
-        //第二个选项
+
+        //第二个选项 用户退出
         menu.getItem(1).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(MainActivity.this,"第二个",Toast.LENGTH_SHORT).show();
+                // 从 shared 中获取用户信息
+                SharedPreferences shared = getSharedPreferences("userInfo", MODE_PRIVATE);
+                // 编辑 shared 中的 isGuide 字段
+                SharedPreferences.Editor editor = shared.edit();
+                // isGuide = true 下次启动时需要进入重新登录界面
+                editor.putBoolean("isGuide", true);
+                // apply 应用修改
+                editor.apply();
+
+                // 启动登录界面
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+
+                // 销毁当前界面 防止返回
+                finish();
+                //提示
+                ToastFactory.show(MainActivity.this,"用户退出，返回登陆页面");
                 return true;
             }
         });
-        //第三个选项
+
+        //第三个选项 退出程序
         menu.getItem(2).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(MainActivity.this,"第三个",Toast.LENGTH_SHORT).show();
+                finish();
+                //淡出动画
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
             }
         });
