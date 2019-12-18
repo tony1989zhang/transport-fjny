@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IInterface;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
@@ -28,7 +29,7 @@ public class NetUtil {
     Handler handler = new Handler(Looper.getMainLooper());
 
     //成功事件监听
-    public interface onLinstener {
+    public interface NetUtilLinstener {
         void success(String result);
         void error(String massage);
     }
@@ -81,7 +82,7 @@ public class NetUtil {
         try {
             is = conn.getInputStream();
             isr = new InputStreamReader(is);
-            br = new BufferedReader(br);
+            br = new BufferedReader(isr);
             String line;
 
             while ((line = br.readLine()) != null){
@@ -114,7 +115,7 @@ public class NetUtil {
         return result;
     }
     //监听线程方法
-    private void listenerThread(final String urlString , final String params, final onLinstener linstener){
+    private void listenerThread(final String urlString , final String params, final NetUtilLinstener linstener){
         new Thread(){
             @Override
             public void run() {
@@ -135,9 +136,9 @@ public class NetUtil {
         }.start();
     }
     //定义异步请求
-    public void asynRequest(String urlString, String parms, final onLinstener linstener){
+    public void asynRequest(String urlString, String parms, final NetUtilLinstener linstener){
 
-       listenerThread(urlString,parms,new NetUtil.onLinstener(){
+       listenerThread(urlString,parms,new NetUtil.NetUtilLinstener(){
            @Override
            public void success(final String result) {
                handler.post(new Runnable() {

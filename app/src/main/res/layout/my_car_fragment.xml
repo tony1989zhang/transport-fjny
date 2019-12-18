@@ -6,8 +6,8 @@
     tools:context=".ui.fragment.MyCarFragment">
 
     <TextView
+        android:id="@+id/car_balance"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="我的车辆" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
