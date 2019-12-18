@@ -1,12 +1,21 @@
 package com.fjny.myapplication.ui.fragment;
 
+import android.icu.text.UnicodeSetSpanner;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fjny.myapplication.R;
+import com.fjny.myapplication.model.ChuxinghuanjingInfo;
+import com.fjny.myapplication.request.BaseRequest;
+import com.fjny.myapplication.request.GetChuxinghuanjingRequest;
 
 public class ChuxinghuanjingFragment extends BaseFragment {
-
-
+    private boolean isF5;//是否开启线程
+    private TextView chuxinghuanjing;
     @Override
     int getLayoutId() {
         return R.layout.chuxinghuanjing_fragment;
@@ -14,11 +23,64 @@ public class ChuxinghuanjingFragment extends BaseFragment {
 
     @Override
     void initView(View view) {
-
+        chuxinghuanjing = view.findViewById(R.id.chuxinghuanjing_text);
     }
 
     @Override
     void initData() {
+        //初始化开启线程
+        isF5 = true;
+        if (isF5){
+            thread.start();
+        }
 
+    }
+
+
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            ChuxinghuanjingInfo chuxinghuanjingInfo = (ChuxinghuanjingInfo) msg.obj;
+            //设置值
+            chuxinghuanjing.setText(chuxinghuanjingInfo.getCo2()+","+chuxinghuanjingInfo.getHumidity()+","+chuxinghuanjingInfo.getLight()+","+
+                    chuxinghuanjingInfo.getPm()+","+chuxinghuanjingInfo.getTemp());
+        }
+    };
+    Thread thread = new Thread(){
+        @Override
+        public void run() {
+            while (isF5){
+                GetChuxinghuanjing();
+                try {
+                    //三秒显示刷新一次
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+    //获取出行环境的数值
+    void  GetChuxinghuanjing(){
+        GetChuxinghuanjingRequest chuxinghuanjingRequest = new GetChuxinghuanjingRequest(mContext);
+        chuxinghuanjingRequest.connec(new BaseRequest.BaseRequestListener() {
+            @Override
+            public void onReturn(Object data) {
+                if(data != null){
+                    ChuxinghuanjingInfo chuxinghuanjingInfo = (ChuxinghuanjingInfo) data;
+                    Message message = new Message();
+                    message.obj = chuxinghuanjingInfo;
+                    handler.sendMessage(message);
+                }
+            }
+        });
+    }
+    //切换页面后线程停止
+    @Override
+    public void onPause() {
+        super.onPause();
+        isF5 = false;
     }
 }
