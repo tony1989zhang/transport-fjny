@@ -6,8 +6,8 @@
     tools:context=".ui.fragment.MyCarFragment">
 
     <TextView
+        android:id="@+id/doaluzhuangk_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="道路状况" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
