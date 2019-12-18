@@ -3,6 +3,7 @@ package com.fjny.myapplication.ui.activity;
 
 import com.fjny.myapplication.R;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.Gravity;
@@ -14,7 +15,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.fjny.myapplication.config.AppConfig;
+import com.fjny.myapplication.factory.DialogFactory;
 import com.fjny.myapplication.factory.ToastFactory;
+import com.fjny.myapplication.utils.RegUtil;
+import com.fjny.myapplication.utils.Session;
+import com.fjny.myapplication.widget.EditDialog;
 import com.google.android.material.navigation.NavigationView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
@@ -27,6 +33,7 @@ public class MainActivity extends BaseActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     NavigationView navigationView;
+
     private long exitTime = 0;
 
     // 重写父类抽象方法 设置布局ID
@@ -56,6 +63,12 @@ public class MainActivity extends BaseActivity {
     // 重写父类抽象方法 初始化数据
     @Override
     void initParams() {
+        //初始化请求服务器IP地址
+        //默认使用远端虚拟沙盘地址
+        Session.ip = AppConfig.IP_DEFAULT; //47.106.226.220
+        Session.ipFlag = AppConfig.IP_REMOTE; //remote
+
+
        View view = navigationView.getHeaderView(0);
         TextView textView1 = (TextView)view.findViewById(R.id.name);
         TextView textView2 = (TextView)view.findViewById(R.id.contact);
@@ -64,6 +77,8 @@ public class MainActivity extends BaseActivity {
         SharedPreferences shared = getSharedPreferences("userInfo", MODE_PRIVATE);
         textView1.setText("姓名："+ shared.getString("name","name"));
         textView2.setText("联系方式："+ shared.getString("contact","contact"));
+
+
     }
 
 
@@ -94,11 +109,31 @@ public class MainActivity extends BaseActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
-        //第一个选项
+        //第一个选项 选择服务器
         menu.getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Toast.makeText(MainActivity.this,"第一个",Toast.LENGTH_SHORT).show();
+                // 显示单选对话框
+                DialogFactory.showSelectDialog(MainActivity.this,
+                        "选择服务器",
+                        new String[]{"远端虚拟沙盘", "本地仿真沙盘"},
+                        new EditDialog.OnListener() {
+
+                            // 重写 EditDialog.OnListener 接口事件
+                            @Override
+                            public void onAfter(String input) {
+                                // 如果IP地址格式验证通过
+                                if (RegUtil.isIP(input)) {
+                                    // 储存IP地址
+                                    Session.ip = input;
+                                    Session.ipFlag = AppConfig.IP_LOCAL;
+                                    ToastFactory.show(MainActivity.this, "使用本地仿真沙盘：" + input, true);
+                                } else {
+                                    ToastFactory.show(MainActivity.this, "IP地址格式不正确！");
+                                }
+                            }
+                        });
+
                 return true;
             }
         });
