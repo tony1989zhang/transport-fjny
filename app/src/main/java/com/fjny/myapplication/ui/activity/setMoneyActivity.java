@@ -7,9 +7,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fjny.myapplication.R;
+import com.fjny.myapplication.factory.DialogFactory;
 import com.fjny.myapplication.request.BaseRequest;
 import com.fjny.myapplication.request.SetBalanceRequest;
-import com.fjny.myapplication.ui.fragment.MyCarFragment;
 
 public class setMoneyActivity extends BaseActivity implements View.OnClickListener {
     private TextView carId_text;
@@ -69,15 +69,21 @@ public class setMoneyActivity extends BaseActivity implements View.OnClickListen
     }
 
     //充值余额
-    void setBalance(int carId, int money) {
+    void setBalance(final int carId, final int money) {
         SetBalanceRequest setBalanceRequest = new SetBalanceRequest(setMoneyActivity.this);
         setBalanceRequest.setMoney(carId, money);
         setBalanceRequest.connec(new BaseRequest.BaseRequestListener() {
             @Override
             public void onReturn(Object data) {
+
                 if (data.equals("ok")) {
-                    Toast.makeText(setMoneyActivity.this, "充值成功", Toast.LENGTH_SHORT).show();
-                    finish();
+                    DialogFactory.showDialog(setMoneyActivity.this,"充值","确定要给"+carId+"小车"+"充值"+money+"元吗",new DialogFactory.OnLitener(){
+                        @Override
+                        public void onAfter() {
+                            Toast.makeText(setMoneyActivity.this, "充值成功", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
                 }
             }
         });
