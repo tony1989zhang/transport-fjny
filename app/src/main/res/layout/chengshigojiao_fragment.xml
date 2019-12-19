@@ -3,11 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.MyCarFragment">
-
-    <TextView
+    tools:context=".ui.fragment.MyCarFragment"
+    android:orientation="vertical">
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="城市公交" />
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"/>
 
 </LinearLayout>
