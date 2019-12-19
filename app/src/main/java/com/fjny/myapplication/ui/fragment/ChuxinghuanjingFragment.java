@@ -55,7 +55,8 @@ public class ChuxinghuanjingFragment extends BaseFragment {
             super.handleMessage(msg);
             ChuxinghuanjingInfo chuxinghuanjingInfo = (ChuxinghuanjingInfo) msg.obj;
             //设置值
-            mTvT.setText(chuxinghuanjingInfo.getTemp() + "°C");
+            String tem = chuxinghuanjingInfo.getTemp() < 10 ? "0"+chuxinghuanjingInfo.getTemp(): chuxinghuanjingInfo.getTemp()+"";
+            mTvT.setText(tem + "°C");
             mTvPm.setText(chuxinghuanjingInfo.getPm() + "");
             mTvCo2.setText(chuxinghuanjingInfo.getCo2() + "");
             mTvLight.setText(chuxinghuanjingInfo.getLight() + "");
