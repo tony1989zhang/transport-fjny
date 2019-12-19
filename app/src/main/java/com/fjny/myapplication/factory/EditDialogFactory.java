@@ -15,7 +15,6 @@ public class EditDialogFactory {
     //定义显示静态方法
     public static  void  show(final Context context, String title, final OnListener listener){
         final EditText et = new EditText(context);
-
         new AlertDialog.Builder(context).setTitle(title).setView(et)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
@@ -27,6 +26,8 @@ public class EditDialogFactory {
                     listener.onAfter(input);
                 }
             }
-        });
+        })
+         .setNegativeButton("取消", null)
+                .show();    // 立即显示对话框
     }
 }

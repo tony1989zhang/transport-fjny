@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import com.fjny.myapplication.R;
 import com.fjny.myapplication.factory.DialogFactory;
+import com.fjny.myapplication.factory.EditDialogFactory;
+import com.fjny.myapplication.factory.ToastFactory;
 import com.fjny.myapplication.request.BaseRequest;
 import com.fjny.myapplication.request.SetBalanceRequest;
 
@@ -62,7 +64,21 @@ public class setMoneyActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.money_x:
                 //充值余额 参数1：小车id 参数2:充值的金额
-                Toast.makeText(setMoneyActivity.this, "还未实现该功能", Toast.LENGTH_SHORT).show();
+                EditDialogFactory.show(setMoneyActivity.this, "自定义充值", new EditDialogFactory.OnListener() {
+                    @Override
+                    public void onAfter(String input) {
+                        int moneys = Integer.parseInt(input);
+                        if (moneys>999||moneys<1){
+                            ToastFactory.show(setMoneyActivity.this,"一次只能充值1~999的元");
+                        }else {
+                            try {
+                                setBalance(carId,moneys);
+                            }catch (Exception e){
+                                ToastFactory.show(setMoneyActivity.this,"亲输入整数");
+                            }
+                        }
+                    }
+                });
                 break;
 
         }
