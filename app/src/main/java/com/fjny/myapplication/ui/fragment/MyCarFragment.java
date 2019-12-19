@@ -125,6 +125,13 @@ public class MyCarFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
+        cxczjl.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getActivity(),RecordActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //获取余额
