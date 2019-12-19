@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.MyCarFragment"
     android:orientation="vertical"
-    android:layout_margin="15dp">
+    android:layout_margin="15dp"
+    android:gravity="center_horizontal">
 
     <TextView
         android:layout_width="match_parent"
@@ -36,10 +37,10 @@
 
     <ImageView
         android:id="@+id/ts1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ddd"
-        android:layout_marginBottom="25dp"/>
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/wxcode"
+        android:layout_marginBottom="25dp" />
 
     <TextView
         android:layout_width="match_parent"

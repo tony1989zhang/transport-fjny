@@ -1,15 +1,20 @@
 package com.fjny.myapplication.ui.fragment;
 
 import android.view.View;
+import android.widget.TextView;
 
 import com.fjny.myapplication.R;
 import com.fjny.myapplication.request.BaseRequest;
 import com.fjny.myapplication.request.GetBusStation;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class BusStationOneFragment extends BaseFragment {
     private boolean isgo;
+    private TextView tvBus1;
+    private TextView tvBus2;
 
     @Override
     int getLayoutId() {
@@ -18,7 +23,8 @@ public class BusStationOneFragment extends BaseFragment {
 
     @Override
     void initView(View view) {
-
+        tvBus1 =view.findViewById(R.id.bus_1);
+        tvBus2 =view.findViewById(R.id.bus_2);
     }
 
     @Override
@@ -59,9 +65,8 @@ public class BusStationOneFragment extends BaseFragment {
             @Override
             public void onReturn(Object data) {
                 List<Integer> list = (List<Integer>) data;
-
-                list.get(0);//公交1数据
-                list.get(1);//公交2数据
+                tvBus1.setText(list.get(0)+"km");
+                tvBus2.setText(list.get(1)+"km");
             }
         });
 

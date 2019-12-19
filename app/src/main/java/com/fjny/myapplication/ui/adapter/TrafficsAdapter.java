@@ -49,7 +49,7 @@ public class TrafficsAdapter extends BaseAdapter {
         LayoutInflater inflater =(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view;
             if (convertView ==null){
-                view =inflater.inflate(R.layout.item_spinner,null);
+                view =inflater.inflate(R.layout.item_traffic,null);
             } else {
                 view =convertView;
             }

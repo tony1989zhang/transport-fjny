@@ -95,7 +95,7 @@ SpinnerFactory.getSpinner(mContext,sSpinner,sSortMode,new SpinnerFactory.Spinner
 
         SortField =position <2 ? 0 :position <4 ? 1 :position <6 ? 2 :3;
 
-//        queryTrafficInfo();
+        queryTrafficInfo();
     }
 });
 
