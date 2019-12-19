@@ -4,13 +4,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 
 import com.fjny.myapplication.config.AppConfig;
 import com.fjny.myapplication.utils.Session;
 import com.fjny.myapplication.widget.EditDialog;
 
-import java.net.ContentHandler;
 
 //对话框工厂类
 public class DialogFactory {

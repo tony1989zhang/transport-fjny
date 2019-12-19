@@ -120,6 +120,7 @@ public class MyCarFragment extends BaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.isEmpty();
                 bundle.putInt("carId",carId);
+
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -167,15 +168,11 @@ public class MyCarFragment extends BaseFragment {
             public void run() {
                 super.run();
                 InputStream is = mContext.getResources().openRawResource(R.raw.car_info);
-
                 try {
                     List<CarInfo> list= CarInfoService.getFormXML(is);
-
                     CarInfo carInfo = list.get(position);
-
                     Message message = new Message();
                     message.obj = carInfo;
-
                     handler.sendMessage(message);
                 } catch (XmlPullParserException e) {
                     e.printStackTrace();

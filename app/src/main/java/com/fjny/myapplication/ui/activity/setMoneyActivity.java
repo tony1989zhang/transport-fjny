@@ -27,11 +27,11 @@ public class setMoneyActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     void initView() {
-        carId_text = findViewById(R.id.car_id); // 车辆编号 文本框
-        money20 = findViewById(R.id.money_20);  // 充值金额20元 按钮
-        money50 = findViewById(R.id.money_50);   // 充值金额50元 按钮
-        money100 = findViewById(R.id.money_100);    // 充值金额100元 按钮
-        moneyX = findViewById(R.id.money_x);    // 自定义充值金额 按钮
+        carId_text = findViewById(R.id.car_id);
+        money20 = findViewById(R.id.money_20);
+        money50 = findViewById(R.id.money_50);
+        money100 = findViewById(R.id.money_100);
+        moneyX = findViewById(R.id.money_x);
 
     }
 
@@ -96,55 +96,12 @@ public class setMoneyActivity extends BaseActivity implements View.OnClickListen
                     DialogFactory.showDialog(setMoneyActivity.this,"充值","确定要给"+carId+"小车"+"充值"+money+"元吗",new DialogFactory.OnLitener(){
                         @Override
                         public void onAfter() {
-
-                            /*
-                            // 初始化充值记录信息类
-                            RecordInfo record = new RecordInfo();
-                            // 记录充值车辆
-                            record.setCarId(carId);
-                            // 记录充值金额
-                            record.setMoney(money);
-
-                            // 使用shared获得充值者并记录
-                            SharedPreferences shared = getSharedPreferences("userInfo", MODE_PRIVATE);
-                            record.setUserName(shared.getString("name", "name"));
-
-                            // 获取当前时间
-                            Date currentTime = new Date();
-                            // 设置时间格式
-                            SimpleDateFormat formatter = new SimpleDateFormat("MM-dd hh:mm");
-                            // 记录充值时间
-                            record.setChargeDate(formatter.format(currentTime));
-
-                            // 使用充值记录数据库访问器
-                            // 增加一条充值记录数据到数据库表
-                            recordDao.insert(record);
-
-                            ToastFactory.show(ChargeActivity.this, "充值成功", true);
-                        } else {
-                            ToastFactory.show(ChargeActivity.this, "充值失败", true);
-                        }
-
-                        // 充值结束后销毁当前页面
-                        finish();
-                             */
                             Toast.makeText(setMoneyActivity.this, "充值成功", Toast.LENGTH_SHORT).show();
-                            // 充值结束后销毁当前页面
                             finish();
                         }
                     });
-                }else {
-                    ToastFactory.show(setMoneyActivity.this, "充值失败", true);
-                    // 充值失败后销毁当前页面
-                    finish();
                 }
-
             }
-
         });
     }
-
-
-    /***/
-
 }
