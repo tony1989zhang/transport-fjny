@@ -10,6 +10,6 @@
         android:id="@+id/btn_color1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="点击变色"/>
+        android:text="没有任何作用的按钮"/>
 
 </LinearLayout>
