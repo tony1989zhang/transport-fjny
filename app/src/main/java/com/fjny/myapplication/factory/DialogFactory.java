@@ -72,7 +72,8 @@ public class DialogFactory {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch(which){
-                    case 1:
+
+                    case 0:
                     // 选择远端模拟沙盘
                     Session.ip = AppConfig.IP_DEFAULT;  // 47.106.226.220
                     Session.ipFlag = AppConfig.IP_REMOTE; //    remote
@@ -80,10 +81,11 @@ public class DialogFactory {
                     break;
 
                     //选择 本地仿真沙盘
-                    case 0:
+                    case 1:
                         //显示带编辑框的对话框 并交给外部实现接口处理
                         EditDialog.show(context,"设置IP地址",onAfter);
                         break;
+
                 }
                 dialog.dismiss();           // 单选对话框需要手动关闭
             }

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fjny.myapplication">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -13,10 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".ui.activity.LoginActivity"
-            android:label="完善信息"></activity>
-
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:label="完善信息" />
         <activity
             android:name=".ui.activity.GuideActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -26,15 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <!--原默认进入页面-->
+
+            <!-- 原默认进入页面 -->
         </activity>
-
-
     </application>
 
 </manifest>
