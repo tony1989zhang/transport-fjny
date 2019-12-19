@@ -23,14 +23,16 @@
         android:layout_height="wrap_content"
         android:text="点击跳转官方网站"
         android:textAllCaps="false"
-        android:layout_marginBottom="15dp"/>
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/btn_style2"/>
     <Button
         android:id="@+id/btn_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="点击拨打官方电话"
         android:textAllCaps="false"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_style2"/>
 
     <ImageView
         android:id="@+id/ts1"
