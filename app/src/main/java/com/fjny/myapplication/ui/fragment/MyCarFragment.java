@@ -19,6 +19,7 @@ import com.fjny.myapplication.request.BaseRequest;
 import com.fjny.myapplication.request.GetBalanceRequest;
 import com.fjny.myapplication.request.SetBalanceRequest;
 import com.fjny.myapplication.service.CarInfoService;
+import com.fjny.myapplication.ui.activity.RecordActivity;
 import com.fjny.myapplication.ui.activity.setMoneyActivity;
 import com.fjny.myapplication.utils.Session;
 
@@ -47,6 +48,7 @@ public class MyCarFragment extends BaseFragment {
     private TextView zfkText;//总罚款
 
     private Button btnSetMoney;//充值按钮
+    private TextView cxczjl;        // 声明 查询充值记录 按钮
 
     @Override
     int getLayoutId() {
@@ -71,6 +73,8 @@ public class MyCarFragment extends BaseFragment {
         zfkText = view.findViewById(R.id.zfk_text);
 
         btnSetMoney = view.findViewById(R.id.czye);
+        cxczjl = view.findViewById(R.id.cxczjl);
+
     }
 
     @Override
@@ -180,6 +184,15 @@ public class MyCarFragment extends BaseFragment {
                 }
             }
         }.start();
+
+
+        //跳转查询充值记录
+        cxczjl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(mContext, RecordActivity.class));
+            }
+        });
 
     }
 
