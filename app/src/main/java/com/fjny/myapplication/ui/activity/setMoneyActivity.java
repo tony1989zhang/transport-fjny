@@ -96,17 +96,6 @@ public class setMoneyActivity extends BaseActivity implements View.OnClickListen
                     DialogFactory.showDialog(setMoneyActivity.this,"充值","确定要给"+carId+"小车"+"充值"+money+"元吗",new DialogFactory.OnLitener(){
                         @Override
                         public void onAfter() {
-
-
-
-
-
-
-
-
-
-
-
                             Toast.makeText(setMoneyActivity.this, "充值成功", Toast.LENGTH_SHORT).show();
                             finish();
                         }
