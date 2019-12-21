@@ -6,20 +6,22 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fjny.myapplication.R;
 import com.fjny.myapplication.config.AppConfig;
 import com.fjny.myapplication.factory.SpinnerFactory;
+import com.fjny.myapplication.factory.ToastFactory;
 import com.fjny.myapplication.model.CarInfo;
 import com.fjny.myapplication.request.BaseRequest;
-import com.fjny.myapplication.request.GetBalanceRequest;
-import com.fjny.myapplication.request.SetBalanceRequest;
+import com.fjny.myapplication.request.GetCarSpeedRequest;
+import com.fjny.myapplication.request.SetCarMoveRequest;
+import com.fjny.myapplication.request.getBalanceRequest;
 import com.fjny.myapplication.service.CarInfoService;
-import com.fjny.myapplication.ui.activity.RecordActivity;
 import com.fjny.myapplication.ui.activity.setMoneyActivity;
 import com.fjny.myapplication.utils.Session;
 
@@ -48,7 +50,11 @@ public class MyCarFragment extends BaseFragment {
     private TextView zfkText;//总罚款
 
     private Button btnSetMoney;//充值按钮
-    private TextView cxczjl;        // 声明 查询充值记录 按钮
+
+    private TextView carSpeed;//车速显示
+    private int isCarSpeed;//车速
+    private Switch doStopCar;//车辆启停
+    private Spinner parkRate;//费率选择
 
     @Override
     int getLayoutId() {
@@ -73,7 +79,10 @@ public class MyCarFragment extends BaseFragment {
         zfkText = view.findViewById(R.id.zfk_text);
 
         btnSetMoney = view.findViewById(R.id.czye);
-        cxczjl = view.findViewById(R.id.cxczjl);
+
+        carSpeed = view.findViewById(R.id.car_speed);
+        doStopCar = view.findViewById(R.id.stop_car);
+        parkRate = view.findViewById(R.id.park_rate);
 
     }
 
@@ -98,20 +107,21 @@ public class MyCarFragment extends BaseFragment {
                 R.drawable.toyota_carola
         };
         //下拉框
-        SpinnerFactory.getSpinner(mContext, cars, spinner, new SpinnerFactory.SpinnerListener() {
+        SpinnerFactory.getSpinner(mContext, cars, spinner,R.layout.item_spinner, new SpinnerFactory.SpinnerListener() {
             @Override
             public void onSelector(int position) {
                 carId = position + 1;
                 //获取余额 参数1:小车id
-                getBalance(position + 1);
+                getBalance(carId);
                 //获取小车参数
                 getXmlData(position);
                 //获取小车图片
                 carPhoto.setImageResource(carPhots[position]);
+                //获取小车速度
+                getCarSpeed(carId);
             }
         });
-
-
+        spinner.setSelection(0);
         //点击进入充值页面
         btnSetMoney.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,30 +135,45 @@ public class MyCarFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-        cxczjl.setOnClickListener(new View.OnClickListener(){
+        //设置汽车动作
+        doStopCar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent =new Intent(getActivity(),RecordActivity.class);
-                startActivity(intent);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                String stop = isChecked ? "Stop" : "Move";
+                setCarAction(carId,stop);
+                if (isChecked){
+                    ToastFactory.show(mContext,"停车状态");
+                }else {
+                    ToastFactory.show(mContext,"启动状态");
+                }
+            }
+        });
+        //费率选择
+        SpinnerFactory.getSpinner(mContext, new String[]{"按小时收费(每小时10元)", "按次收费(每次50元)"}, parkRate, R.layout.item_spinner2, new SpinnerFactory.SpinnerListener() {
+            @Override
+            public void onSelector(int position) {
+                if (position == 0){
+                    //每小时收费
+                }else {
+                    //每次收费
+                }
             }
         });
     }
 
-    //获取余额
+    //获取余额方法
     void getBalance(int carId) {
-        GetBalanceRequest getBalaceRequest = new GetBalanceRequest(mContext);
+        getBalanceRequest getBalaceRequest = new getBalanceRequest(mContext);
         getBalaceRequest.getId(carId);
         getBalaceRequest.connec(new BaseRequest.BaseRequestListener() {
             @Override
             public void onReturn(Object data) {
-                carBalance.setText( "￥"+ data.toString() +".00");
+                carBalance.setText( "￥"+ data+".00");
             }
         });
     }
 
-
-
-
+    //设置车信息方法
     Handler handler = new  Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -166,8 +191,7 @@ public class MyCarFragment extends BaseFragment {
 
         }
     };
-
-    //获取Xml获得的数据
+    //获取Xml获得的数据方法
     public void getXmlData(final int position){
         //获取xml文件只能在线程中
         new Thread(){
@@ -189,21 +213,50 @@ public class MyCarFragment extends BaseFragment {
             }
         }.start();
 
-
-        //跳转查询充值记录
-        cxczjl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(mContext, RecordActivity.class));
-            }
-        });
-
     }
 
-    //回到这个页面记得刷新
+    //获取小车当前速度
+    public void getCarSpeed(final int carId){
+        GetCarSpeedRequest getCarSpeedRequest = new GetCarSpeedRequest(mContext);
+        getCarSpeedRequest.getCarId(carId);
+        getCarSpeedRequest.connec(new BaseRequest.BaseRequestListener() {
+            @Override
+            public void onReturn(Object data) {
+                carSpeed.setText(data+"");
+                isCarSpeed = Integer.parseInt(data.toString());
+                //判断是否是停车
+                if (isCarSpeed == 0){
+                    doStopCar.setChecked(true);
+                }else {
+                    doStopCar.setChecked(false);
+                }
+            }
+        });
+    }
+
+    //设置小车动作
+    public void setCarAction(final int carId, String carAction){
+        SetCarMoveRequest setCarMoveRequest = new SetCarMoveRequest(mContext);
+        setCarMoveRequest.getCarId(carId);
+        setCarMoveRequest.getCarAction(carAction);
+        setCarMoveRequest.connec(new BaseRequest.BaseRequestListener() {
+            @Override
+            public void onReturn(Object data) {
+                if (data.equals("ok")){
+                    getCarSpeed(carId);
+                }
+            }
+        });
+    }
+
+
+    //返回页面重新加载余额
     @Override
     public void onResume() {
         super.onResume();
-        getBalance(carId);
+        if (carId != 0){
+            getBalance(carId);
+            getCarSpeed(carId);
+        }
     }
 }

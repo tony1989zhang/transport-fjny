@@ -10,15 +10,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:padding="40dp">
+        android:background="@color/colorPrimary">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="公交离二号站台的距离"
             android:textSize="30sp"
             android:textColor="@color/colorWhite"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            />
     </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

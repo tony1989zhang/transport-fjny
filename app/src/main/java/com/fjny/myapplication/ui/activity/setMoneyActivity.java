@@ -1,5 +1,6 @@
 package com.fjny.myapplication.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +15,7 @@ import com.fjny.myapplication.request.BaseRequest;
 import com.fjny.myapplication.request.SetBalanceRequest;
 
 public class setMoneyActivity extends BaseActivity implements View.OnClickListener {
-    private TextView carId_text;
+    private TextView carId_text,cxczjl;
     int carId;
     private Button money20, money50, money100, moneyX;
 
@@ -32,6 +33,7 @@ public class setMoneyActivity extends BaseActivity implements View.OnClickListen
         money50 = findViewById(R.id.money_50);
         money100 = findViewById(R.id.money_100);
         moneyX = findViewById(R.id.money_x);
+        cxczjl = findViewById(R.id.cxczjl);
 
     }
 
@@ -44,6 +46,15 @@ public class setMoneyActivity extends BaseActivity implements View.OnClickListen
         money50.setOnClickListener(this);
         money100.setOnClickListener(this);
         moneyX.setOnClickListener(this);
+
+
+        //跳转查询充值记录
+        cxczjl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(setMoneyActivity.this, RecordActivity.class));
+            }
+        });
 
     }
 

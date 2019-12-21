@@ -13,10 +13,8 @@ public class SpinnerFactory {
     public interface SpinnerListener{
         void onSelector(int position);
     }
-    public static void getSpinner(Context context, String[] datas, Spinner spinner, final SpinnerListener listener){
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.item_spinner,datas);
-        adapter.setDropDownViewResource(R.layout.item_spinner);
-
+    public static void getSpinner(Context context, String[] datas, Spinner spinner, int layoutId, final SpinnerListener listener){
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, layoutId,datas);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
