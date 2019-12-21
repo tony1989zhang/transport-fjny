@@ -333,7 +333,8 @@
             android:id="@+id/park_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#000000"/>
+            android:backgroundTint="#000000"
+            />
     </LinearLayout>
 
 

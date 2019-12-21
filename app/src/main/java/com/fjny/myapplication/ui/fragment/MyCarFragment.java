@@ -19,6 +19,7 @@ import com.fjny.myapplication.factory.ToastFactory;
 import com.fjny.myapplication.model.CarInfo;
 import com.fjny.myapplication.request.BaseRequest;
 import com.fjny.myapplication.request.GetCarSpeedRequest;
+import com.fjny.myapplication.request.SetBalanceRequest;
 import com.fjny.myapplication.request.SetCarMoveRequest;
 import com.fjny.myapplication.request.getBalanceRequest;
 import com.fjny.myapplication.service.CarInfoService;
@@ -56,6 +57,9 @@ public class MyCarFragment extends BaseFragment {
     private Switch doStopCar;//车辆启停
     private Spinner parkRate;//费率选择
 
+    private String soCharged;//这么收费
+    private boolean isHourCharged;//计时计费开关
+
     @Override
     int getLayoutId() {
         return R.layout.my_car_fragment;
@@ -91,6 +95,9 @@ public class MyCarFragment extends BaseFragment {
         //初始化ip和服务器类型
         Session.ip = AppConfig.IP_DEFAULT;
         Session.ipFlag = AppConfig.IP_LOCAL;
+
+        //初始化关闭计时收费
+        isHourCharged = false;
 
         //下拉框目录
         cars = new String[]{
@@ -142,9 +149,9 @@ public class MyCarFragment extends BaseFragment {
                 String stop = isChecked ? "Stop" : "Move";
                 setCarAction(carId,stop);
                 if (isChecked){
-                    ToastFactory.show(mContext,"停车状态");
+                    ToastFactory.show(mContext,"停车成功");
                 }else {
-                    ToastFactory.show(mContext,"启动状态");
+                    ToastFactory.show(mContext,"启动成功");
                 }
             }
         });
@@ -153,12 +160,14 @@ public class MyCarFragment extends BaseFragment {
             @Override
             public void onSelector(int position) {
                 if (position == 0){
-                    //每小时收费
+                    soCharged = "hour";
                 }else {
-                    //每次收费
+                    soCharged = "count";
                 }
             }
         });
+        //初始化选择按小时收费
+        parkRate.setSelection(0);
     }
 
     //获取余额方法
@@ -214,7 +223,6 @@ public class MyCarFragment extends BaseFragment {
         }.start();
 
     }
-
     //获取小车当前速度
     public void getCarSpeed(final int carId){
         GetCarSpeedRequest getCarSpeedRequest = new GetCarSpeedRequest(mContext);
@@ -226,9 +234,36 @@ public class MyCarFragment extends BaseFragment {
                 isCarSpeed = Integer.parseInt(data.toString());
                 //判断是否是停车
                 if (isCarSpeed == 0){
+                    //判断车辆动作
                     doStopCar.setChecked(true);
+                    //禁用下拉框
+                    parkRate.setEnabled(false);
+                    //开始收费
+                    if (soCharged.equals("hour")){
+                        isHourCharged = true;
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                while (isHourCharged){
+                                    hourCharged();
+                                    try {
+                                        Thread.sleep(5000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }).start();
+                    }else if (soCharged.equals("count")){
+                        countCharged();
+                    }
                 }else {
+                    //判断车辆动作
                     doStopCar.setChecked(false);
+                    //启动下拉框
+                    parkRate.setEnabled(true);
+                    //停止收费
+                    isHourCharged = false;
                 }
             }
         });
@@ -249,6 +284,34 @@ public class MyCarFragment extends BaseFragment {
         });
     }
 
+
+
+    //按小时收费
+    public void hourCharged(){
+        SetBalanceRequest setBalanceRequest = new SetBalanceRequest(mContext);
+        setBalanceRequest.setMoney(carId,-10);
+        setBalanceRequest.connec(new BaseRequest.BaseRequestListener() {
+            @Override
+            public void onReturn(Object data) {
+                if (data.toString().equals("ok")){
+                    getBalance(carId);
+                }
+            }
+        });
+    }
+    //按次数收费
+    public void countCharged(){
+        SetBalanceRequest setBalanceRequest = new SetBalanceRequest(mContext);
+        setBalanceRequest.setMoney(carId,-50);
+        setBalanceRequest.connec(new BaseRequest.BaseRequestListener() {
+            @Override
+            public void onReturn(Object data) {
+                if (data.toString().equals("ok")){
+                    getBalance(carId);
+                }
+            }
+        });
+    }
 
     //返回页面重新加载余额
     @Override
