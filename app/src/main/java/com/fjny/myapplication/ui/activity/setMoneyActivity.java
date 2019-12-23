@@ -1,5 +1,6 @@
 package com.fjny.myapplication.ui.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -21,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class setMoneyActivity extends BaseActivity implements View.OnClickListener {
-    private TextView carId_text;
+    private TextView carId_text,cxczjl;
     int carId;
     private Button money20, money50, money100, moneyX;
     private RecordDao recordDao;    // 充值记录 数据库访问器
@@ -40,6 +41,7 @@ public class setMoneyActivity extends BaseActivity implements View.OnClickListen
         money50 = findViewById(R.id.money_50);
         money100 = findViewById(R.id.money_100);
         moneyX = findViewById(R.id.money_x);
+        cxczjl = findViewById(R.id.cxczjl);
 
     }
 
@@ -52,6 +54,7 @@ public class setMoneyActivity extends BaseActivity implements View.OnClickListen
         money50.setOnClickListener(this);
         money100.setOnClickListener(this);
         moneyX.setOnClickListener(this);
+        cxczjl.setOnClickListener(this);
         recordDao = new RecordDao(setMoneyActivity.this);
     }
 
@@ -100,6 +103,10 @@ public class setMoneyActivity extends BaseActivity implements View.OnClickListen
                         }
                     }
                 });
+                break;
+            case R.id.cxczjl:
+                    Intent intent = new Intent(setMoneyActivity.this,RecordActivity.class);
+                    startActivity(intent);
                 break;
 
         }
@@ -154,5 +161,7 @@ public class setMoneyActivity extends BaseActivity implements View.OnClickListen
                 }
             }
         });
+
+
     }
 }

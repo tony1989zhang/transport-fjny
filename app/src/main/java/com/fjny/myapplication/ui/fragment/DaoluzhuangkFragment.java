@@ -88,14 +88,14 @@ public class DaoluzhuangkFragment extends BaseFragment {
         };
 
         thread.start();
-SpinnerFactory.getSpinner(mContext,sSpinner,sSortMode,new SpinnerFactory.SpinnerListener(){
+SpinnerFactory.getSpinner(mContext,sSpinner,sSortMode,R.layout.item_spinner,new SpinnerFactory.SpinnerListener(){
     @Override
     public void onSelector(int position) {
         SortMode =position%2==0? 0:1;
 
         SortField =position <2 ? 0 :position <4 ? 1 :position <6 ? 2 :3;
 
-//        queryTrafficInfo();
+        queryTrafficInfo();
     }
 });
 

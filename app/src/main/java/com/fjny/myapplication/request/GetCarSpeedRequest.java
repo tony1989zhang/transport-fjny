@@ -7,39 +7,40 @@ import com.fjny.myapplication.config.AppConfig;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class GetBalanceRequest extends BaseRequest {
+public class GetCarSpeedRequest extends BaseRequest {
     private int carId;
-    public GetBalanceRequest(Context context) {
+    public GetCarSpeedRequest(Context context) {
         super(context);
     }
-    public void getId(int carId){
+
+    public void getCarId(int carId){
         this.carId = carId;
     }
     @Override
     String getUrl() {
-        return AppConfig.GET_CAR_BALANCE;
+        return AppConfig.GET_CAR_SPEED;
     }
+
     @Override
     String getParams() {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put(AppConfig.KEY_CAR_ID,carId);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return jsonObject.toString();
     }
+
     @Override
     Object analyzeResponse(String responseString) {
-        int money = 0;
+        int speed = 0;
         try {
             JSONObject jsonObject = new JSONObject(responseString);
-            money = jsonObject.optInt(AppConfig.KEY_CAR_BALANCE);
-
+            speed = jsonObject.optInt(AppConfig.KEY_CAR_SPEED);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return money;
+        return speed;
     }
 }
