@@ -9,15 +9,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.fjny.myapplication.R;
+import com.fjny.myapplication.dao.RecordDao;
+import com.fjny.myapplication.model.RecordInfo;
+import com.fjny.myapplication.ui.adapter.RecordsAdapter;
 
 import java.util.List;
 
 public class RecordActivity extends BaseActivity implements View.OnClickListener{
     private ListView lvRecords;         // 记录 列表视图
     private TextView tvTrip;            // 提示 文本框
-    //private RecordDao recordDao;        // record表访问器
+    private RecordDao recordDao;        // record表访问器
 
-   // private List<RecordInfo> records;   // 充值记录类 集合数组
+    private List<RecordInfo> records;   // 充值记录类 集合数组
     @Override
     int getLayoutId() {
         return R.layout.activity_record;
@@ -25,10 +28,10 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     void initView() {
-/*// 设置顶部原生标题栏标题 已在清单文件中设置
+        // 设置顶部原生标题栏标题 已在清单文件中设置
         // RecordActivity.this.setTitle("充值记录");
 
-        // 显示顶部原生标题栏返回按钮
+        /*// 显示顶部原生标题栏返回按钮
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
@@ -41,7 +44,7 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     void initParams() {
-       /* // 使用record表的访问器从数据库获取全部记录
+        // 使用record表的访问器从数据库获取全部记录
         recordDao = new RecordDao(RecordActivity.this);
         records = recordDao.selectAll();
 
@@ -54,7 +57,7 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
         } else {
             lvRecords.setVisibility(View.GONE);
             tvTrip.setVisibility(View.VISIBLE);
-        }*/
+        }
     }
 
     // 重写顶部标题栏按钮监听事件
@@ -69,8 +72,6 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
         }
         return super.onOptionsItemSelected(item);
     }
-
-    // 重写按钮监听接口事件
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

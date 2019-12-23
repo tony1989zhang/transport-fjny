@@ -182,4 +182,6 @@ public class MainActivity extends BaseActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
 }
