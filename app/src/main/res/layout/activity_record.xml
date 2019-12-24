@@ -56,9 +56,19 @@
             android:textColor="@color/colorWhite"
             android:textAlignment="center"/>
     </LinearLayout>
-    <ListView
+    <TextView
+        android:id="@+id/tv_no_records"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"></ListView>
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="暂无充值记录"
+        android:textSize="25dp"/>
+
+    <ListView
+        android:id="@+id/lv_records"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
 </LinearLayout>
