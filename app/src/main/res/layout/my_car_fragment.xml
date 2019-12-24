@@ -345,10 +345,6 @@
                 android:textSize="20dp"
                 android:text="停车"/>
         </LinearLayout>
-
     </LinearLayout>
-
-
-
 </LinearLayout>
 </ScrollView>
